@@ -1,0 +1,70 @@
+03/03/17
+
+10/03/17
+-Creation du fichier Makefile
+-Creation de la classe Vecteur3D
+
+17/03/17
+-Modification du makefile
+-surcharge des operateurs
+En particulier il y a eu un probleme avec la surcharge de ^ pour le produit vectoriel.
+-Creation de la classe grain
+
+24/03/17
+-Creation de la classe Plan (infini).
+-Creation de la classe Source
+La methode creation ne fonctionne pas comme voulu.
+-nous avons travaille sur notre ancien code et corrige des erreurs
+
+31/03/17
+-Modification de grain et plan.
+Nous avons un code qui compile (sur xcode et avec le makefile)
+
+07/04/17
+Nous avons:
+-fini la class Source (notemment la methode creation)
+-modifie la methode bouger de Grain pour eliminer toute redondance dans l’actualisation des forces
+-repare une erreur dans un test de grain dans l’iteration d’un grain qui bouge
+-ajoute quelques methodes get et set a Vecteur3D et Grain
+-Le code compile
+
+
+14/04/17 (Paques)
+La methode creation fonctionne mais pas comme on le voudrait: pour un pas de temps elle genere des grains tous identiques (par exemple si pour un pas de temps dt l’algorithme donne dit qu’il faut generer 4 grains, le tableau rendu est bien de 4 grains mais ils sont tous pareils et correspondent tous au dernier grain genere par la methode gaussienne).
+
+
+28/04/17
+Serie notee
+
+05/05/17
+Nous avons:
+-tente de rendre la methode evolue() fonctionnelle (pour l’instant elle ne marche pas)
+-modifie le Makefile pour y inclure les nouvelles classes
+-debeugge la methode creation, maintenant elle retourne un tableau avec des grains tous un peu differents comme voulu. Mais on dirait qu’on ne peut pas verifier ces valeurs (?). 
+Je ne sais pas d’ou venait l’erreur mais une explicitation du code l’a resolue. J’ai initialise le tableau a rendre avec des clones() du grain modele, puis pour chaque grain j’ai modifie la vitesse et le rayon selon la loi de gausse.
+
+
+12/05/17
+Nous avons 
+-travaille sur la methode evolue
+-relu toutes les methodes importantes pour la simulation du mouvement d’un grain (forces, bouger, evolue)
+-change la facon dont sont implementees les constantes physiques Vecteur gravite, eta et rho du milieu. Elles sont maintenant declarees en tant que static dans la super class Grain.
+-travaille sur l’aspect graphique sur qt: on a rencontre une erreur liee au constructeur de Systeme qui cause le programme a quitter de facon imprevue. 
+
+19/05/17
+Examen 
+
+26/05/17
+Nouvelles classe cylindre et briques ajoutees.
+ExerciceP10 fini (trois grains en chute libre sur qt).
+Apres plusieurs essais on a finalement une methode evolue qui marche. 
+Le probleme de readaptation du pas de temps parait pas trop complique, on a implemente un mecanisme qui change le pas de temps en si la vitesse est trop grande. Cela semble neanmoins ralentir le systeme entier… 
+Une methode trop_loin(double frontiere) a ete ajoutee a la classe Grain. Elle signale par un bool si le grain est trop loin. On le supprimera alors dans evolue en faisant attention a desallouer la memoire apres avoir detruit le pointeur (delete).
+On a rajoute la poussee d’archimede aux forces. 
+
+29/05/17
+Nous ameliorons le code, mettons des commentaires explicatifs, finissons le makefile de sorte a ce qu’il marche avec toutes les classes.
+On a ajoute les methodes dessine (graphiques) de Plan, PortionPlan, Sphere et Brique.
+On a pu faire plusieurs simulations interessantes comme des petits grains qui tombent sur une grande sphere, des grains dont la couleur depend de la position a laquelle ils se trouvent, une centaine de grains a haute vitesse dans une boit faite de plans.
+Si on avait le temps on ferait surement une methode qui nous permetterait de changer de milieu dynamiquement. On a aussi pense a faire des canons de grains qui se tirent dessus mais malheureusement bien que notre source marche bien, on n’a pas reussi a l’implementer dans glwidget.
+

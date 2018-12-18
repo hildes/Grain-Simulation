@@ -1,0 +1,62 @@
+
+1.1 Pour l´attribut , vue que un vecteur est composée de trois réels le meilleur moyen de le représenter selon nous était un array<double,3> on a pensé que c´était mieux que faire 3 attributs double car pourquoi avoir 3 attributs si l´on peut en avoir que un?  et on a trouvé que c´était mieux que faire une struct de 3 doubles vue que toutes les valeurs étaient du meme type. 
+Les méthodes qu´on a mis dans la classe était les demandée plus une méthode normalise qui nous normalise un vecteur et une méthode get_normal qui nous return la normale d´un vecteur qu´on a passée en paramètre (la première nous change le vecteur la deuxième fait une copie)
+
+
+4.1 
+Non on a décidé de ne pas rajouter un constructeur de copie vue que c++ nous offre directement un constructeur de copie. On aurait rajouté un si il avait était différent de celui fourni par c++ par exemple si on aurait voulu affiché un message comme “ vecteur copié”. 
+
+4.2 
+a) Un constructeur par coordonnees spheriques impliquerait differentes difficultes dans la suite. Par exemple la conversion entre coordonnees spheriques et cartesienne ferait des pertes de precision sur les doubles et l’operateur == devrait etre remplace par norme(u-v)<epsilon. Comme le seul attribut de notre classe Vecteur3D, pour l’instant, est un tableau fixe de trois doubles.
+
+b) La conversion entre les deux systemes de coordnonnees serait difficile. Comment distinguer un constructeur en coordonnees d’un systeme ou d’un autre? Dans les deux cas ce sont trois doubles. Il faudrait par exemple ajouter un 4eme parametre bool (1 = cartesiennes, 0 = spheriques).
+
+4.3
+Pour affiche c’est un operator<< (de type ostream) et qui retourne un ostream. Pour compare c’est un operator== qui retourne un bool car quand on compare deux vecteurs ce que l´on veut tester c´est si ils sont pareils ou si ils ne le sont pas(true si c´est pareil false si ils sont différents).
+
+5.1
+masse() sera une methode qui calcule la masse a partir du rayon et de la masse volumique du grain, qui est une sphere. Le Volume d´une sphère est fixe alors la masse peut être obtenu que en connaissant la masse volumique et viceversa on a pensé que avoir deux attributs qui sont directement liée n´était pas très utile c´est pour cela que on a mis la masse comme une méthode.
+
+6.1
+
+On a décide de créer une classe abstraite Obstacle car un obstacle ne peut pas être représentée graphiquement on ne connait pas sa forme, cette classe possédera          l´attribut position ou se trouve l´obstacle une méthode virtuelle pur dessine (qui dessinera les obstacles), une méthode d´affichage(qui représente en mode texte) et une méthode point le plus proche qui est commune à tous les obstacles. Non, notre classe Grain pour l´instant n´est pas modifié par obstacle.
+
+
+
+8.1 La méthode dessine est une méthode qui est présente dans toutes les classes qui derivent de Dessinable mais elle est différente pour chaque objet (chaque objet ce dessine de manière différente) c´est pour cela qu´elle est polymorphique.
+
+
+
+8.2 Non on ne peux pas, les méthodes qu´on est entrain de définir doivent être présentés dans grains et doivent donc être des méthodes virtuelle pures ( car elles ne sont pas définis en grains). Elles doivent être en grains car la méthode bouger elle les utilise.
+
+
+2eme question 8.2 Un système possède les différents objets dessinables (Grains, obstacles, sources). Les classes qui dérivent de Dessinable ont plusieurs méthodes polymorphiques c´est pour cela que la meilleure manière de représenter des Systèmes est en faisant 3 collections heterogenes( des tableaux de pointeurs qui pointe vers une classe) une pour grain, une autre pour les obstacles et une dernière pour les sources .
+
+
+8.3 Il faudra faire attention à bien desallouer la mémoire, si on détruit un objet il va falloir delete le pointeur qui pointe sur cet objet, il va falloir fair attention aussi au partage de données donc au constructeur de copie et à l´opérateur d´affectation. 
+
+8.4
+Pour les attributs on l´à déjà mentionnée au 8.3 et pour les méthodes on a une méthode evolue qui fait évoluer le système (déplacer les grains, créer des grains etc..) des méthodes qui ajoutes des (Grain, Obstacles et Sources) au vector, une méthode qui vide le système et desalloue la mémoire et une méthode dessine qui dérive de Dessinable.
+
+8.5 Si on laisse le constructeur de copie par défaut alors quand on copie un système on va copier les pointeurs qui pointent sur des variables et alors on va avoir plusieurs pointeurs qui pointe vers une variable et si on change un système l´autre il change aussi et cela peut produire des grands problèmes. Il y a le même problème avec l´opérateur d´affectation . 
+
+05/05/17
+9.2
+
+On parcourt le vector de grains:
+- à chaque grains on ajoute une force( complexité n)
+- après on parcourt les grains pour ajouter une force au grain exercée par chacun des autres grains (complexité n^2)
+- on parcourt les obstacles pour ajouter une force au grain exercée par chaque obstacle ( complexité n*m)
+
+complete finale : n + n^2 + n*m 
+alors c´est en O(max(n,m)^2)
+
+
+
+11.1
+Pour changer le pas de temps on le ferait dans la méthode évolue car c´est celle qui fait évolué le système.
+
+
+
+
+

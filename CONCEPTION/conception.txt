@@ -1,0 +1,86 @@
+
+classe Vecteur3D: cette classe sert a représenter des points et des vecteurs dans l´espace R^3, elle sert d´attribut aux autres classes et elle a toutes les méthodes qui permettent de manipuler les vecteurs ( somme, produit scalaire, produit vectoriel etc…)
+
+
+Classe Dessinable: c´est une superclasse abstraite qui represente les objets qui sont dessainble elle a un support (ou vont être dessinée les objets) et elle possède une méthode virtuelle pur dessine qui dessinera les objets.
+
+Les classes qui héritent de Dessinables sont: 
+
+1. Grain: c´est aussi une classe abstraite elle représente les grains elle a comme méthodes importantes:
+- calcul force: calcule la force qui est exercée par la gravite et frottements
+- ajouteforce(obstacle/grain) : ce sont des méthodes spécifique a chaque grains elle calcule la force exercée par un autre grain et par un obstacle sur lui.
+-bouger: fait bouger le grain quand il y a eu une force
+-affiche: c´est une méthode polymorphisme qui nous donne les informations des grains en mode texte 
+-dessine : elle override la méthode virtuelle de Dessinable car un grain on le peux dessiner 
+
+
+elle possède un operator<< qui utilise la méthode affiche(affichage polymorphique) 
+
+classes qui héritent de grain:
+
+1.1 GrainLJ: cette classe override les fonctions ajouteforce 			il utilise l´interaction de Leonnard-Jones  
+
+classes qui héritent de grainLJ:
+
+1.1.1 GrainLJTUn : elle ajoute a l´affichage grain de type 1
+
+1.1.2 GrainLJTDeux : elle ajoute à l´affichage grain de type 2
+//fini pour classes héritent de GrainLJ
+//fini pour classes héritent de Grain
+
+
+
+
+2. Les Obstacles: C´est aussi une classe abstraite il possède l´attribut position 
+il a deux méthodes virtuelles pures
+dessine: chaque obstacle se dessine de maniere different
+PointPlusproche: qui donne le point le plus proche de l´obstacle a un point passe en paremetre
+et une méthode affiche polymorphique et un operator<< 
+
+
+classes qui héritent de Obstacle:
+
+2.1 Plan : il override les méthodes polymorphique et il a comme attribut un vecteur normal 
+classes qui héritent de plan:
+2.1.1 PortionPlan: une portion de plan est un plan
+//finis pour hérité de plan
+
+2.2 Sphère: elle a pour attribut rayon et position et elle override les méthodes virtuelles purs de obstacle
+
+2.3 Brique: elle a pour attribut une hauteur un vecteur normal et largeur longueur (c´est comme 6 portions de plan)
+
+2.4 Cylindre: elle a pour attribut un rayon hauteur position et il override les méthodes de Obstacle
+
+//finis pour hérité de Obstacle
+
+
+3.Source: elle genere des grains en prennent un grain comme modele a pour attribut une position, un grain modele(pointeur sur un grain),  état, débit
+pour méthode: elle a la méthode création qui cree des grains en prennent le grain modele
+
+
+
+classe Systeme: cette classe represente un système physique (des grains qui bougent et rebondissent sur des obstacles, des sources qui produisent des grains etc..)
+comme attribut on a fait 3 vector de pointeur sur des grains/obstacle/source
+comme méthode: il y a la méthode evolue qui fait évoluer le système elle fait bouger les grains et elle fait aussi que la source cree des grains)
+on a decide de faire un constructeur de copie profonde en système.
+//finis pour dessinable
+
+
+
+
+class SupportADessin : c´est comment on va dessiner (graphiquement ou mode texte) elle contient des méthodes dessine qui prennent en paramètre les different objets dessinable 
+
+classes qui héritent:
+
+1. TextViewer: elle va représenter les objets en modes texte
+2. VueOpenGL: elle va représenter en mode graphique
+
+
+
+
+
+
+
+
+
+
